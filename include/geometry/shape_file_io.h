@@ -3,6 +3,8 @@
  *
  * Copyright (C) 2015 CERN
  * @author Tomasz Wlostowski <tomasz.wlostowski@cern.ch>
+ * Copyright (C) 2016 CERN
+ * @author Michele Castellana <michele.castellana@cern.ch>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,7 +28,7 @@
 #ifndef __SHAPE_FILE_IO_H
 #define __SHAPE_FILE_IO_H
 
-#include <cstdio>
+#include <fstream>
 
 class SHAPE;
 
@@ -48,20 +50,20 @@ class SHAPE_FILE_IO
         SHAPE_FILE_IO( const std::string& aFilename, IO_MODE aMode = IOM_READ );
         ~SHAPE_FILE_IO();
 
-        void BeginGroup( const std::string aName = "<noname>");
+        void BeginGroup( const std::string& aName = "<noname>");
         void EndGroup();
 
         SHAPE* Read();
 
-        void Write( const SHAPE* aShape, const std::string aName = "<noname>" );
+        void Write( const SHAPE* aShape, const std::string& aName = "<noname>" );
 
-        void Write( const SHAPE& aShape, const std::string aName = "<noname>" )
+        void Write( const SHAPE& aShape, const std::string& aName = "<noname>" )
         {
             Write( &aShape, aName );
         }
 
     private:
-        FILE* m_file;
+        std::fstream m_file;
         bool m_groupActive;
         IO_MODE m_mode;
 };

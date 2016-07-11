@@ -3,6 +3,8 @@
  *
  * Copyright (C) 2013 CERN
  * @author Tomasz Wlostowski <tomasz.wlostowski@cern.ch>
+ * Copyright (C) 2016 CERN
+ * @author Michele Castellana <michele.castellana@cern.ch>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -31,37 +33,36 @@
 SHAPE_FILE_IO::SHAPE_FILE_IO( const std::string& aFilename, SHAPE_FILE_IO::IO_MODE aMode )
 {
     m_groupActive = false;
+    m_mode = aMode;
 
-    if( aFilename.length() )
+    if( !aFilename.empty() )
     {
         switch( aMode )
         {
-            case IOM_READ: m_file = fopen( aFilename.c_str(), "rb" ); break;
-            case IOM_WRITE: m_file = fopen( aFilename.c_str(), "wb" ); break;
-            case IOM_APPEND: m_file = fopen( aFilename.c_str(), "ab" ); break;
+            case IOM_READ:
+               m_file.open( aFilename.c_str(), std::fstream::in | std::fstream::binary );
+               break;
+            case IOM_WRITE:
+               m_file.open( aFilename.c_str(), std::fstream::out | std::fstream::binary );
+               break;
+            case IOM_APPEND:
+               m_file.open( aFilename.c_str(), std::fstream::app | std::fstream::binary );
+               break;
             default:
                 return;
         }
     }
-    else
-    {
-        m_file = NULL;
-    }
-
-    m_mode = aMode;
-    // fixme: exceptions
 }
-
 
 SHAPE_FILE_IO::~SHAPE_FILE_IO()
 {
-    if( !m_file )
+    if( !m_file.good() )
         return;
 
     if( m_groupActive && m_mode != IOM_READ )
-        fprintf( m_file, "endgroup\n" );
+        m_file << "endgroup" << std::endl;
 
-    fclose( m_file );
+    m_file.close();
 }
 
 
@@ -105,14 +106,14 @@ SHAPE* SHAPE_FILE_IO::Read()
 }
 
 
-void SHAPE_FILE_IO::BeginGroup( const std::string aName )
+void SHAPE_FILE_IO::BeginGroup( const std::string& aName )
 {
     assert( m_mode != IOM_READ );
 
-    if( !m_file )
+    if( !m_file.good() )
         return;
 
-    fprintf( m_file, "group %s\n", aName.c_str() );
+    m_file << "group " << aName << std::endl;
     m_groupActive = true;
 }
 
@@ -121,26 +122,29 @@ void SHAPE_FILE_IO::EndGroup()
 {
     assert( m_mode != IOM_READ );
 
-    if( !m_file || !m_groupActive )
+    if( !m_file.good() || !m_groupActive )
         return;
 
-    fprintf( m_file, "endgroup\n" );
+    m_file << "endgroup" << std::endl;
     m_groupActive = false;
 }
 
 
-void SHAPE_FILE_IO::Write( const SHAPE* aShape, const std::string aName )
+void SHAPE_FILE_IO::Write( const SHAPE* aShape, const std::string& aName )
 {
     assert( m_mode != IOM_READ );
 
-    if( !m_file )
+    if( !m_file.good() )
         return;
 
     if( !m_groupActive )
-        fprintf( m_file,"group default\n" );
+        m_file << "group default" << std::endl;
 
     std::string sh = aShape->Format();
 
-    fprintf( m_file, "shape %d %s %s\n", aShape->Type(), aName.c_str(), sh.c_str() );
-    fflush( m_file );
+    m_file << "shape "
+       << aShape->Type() << " "
+       << aName << " "
+       << sh << std::endl;
+    m_file.flush();
 }
