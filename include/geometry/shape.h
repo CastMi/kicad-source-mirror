@@ -1,6 +1,7 @@
 /*
  * This program source code file is part of KiCad, a free EDA CAD application.
  *
+ * Copyright (C) CERN 2016 Michele Castellana, <michele.castellana@cern.ch>
  * Copyright (C) 2013 CERN
  * @author Tomasz Wlostowski <tomasz.wlostowski@cern.ch>
  *
@@ -154,7 +155,10 @@ public:
 
     virtual void Move ( const VECTOR2I& aVector ) = 0;
 
-    virtual bool IsSolid() const = 0;
+    virtual bool IsSolid() const
+    {
+        return true;
+    }
 
     virtual bool Parse( std::stringstream& aStream );
 

@@ -580,7 +580,7 @@ public:
             (*i) += aVector;
     }
 
-    bool IsSolid() const
+    bool IsSolid() const override
     {
         return false;
     }

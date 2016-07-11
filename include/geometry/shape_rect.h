@@ -138,11 +138,6 @@ public:
         m_p0 += aVector;
     }
 
-    bool IsSolid() const
-    {
-        return true;
-    }
-
     const SHAPE_LINE_CHAIN Outline() const
     {
         SHAPE_LINE_CHAIN rv;

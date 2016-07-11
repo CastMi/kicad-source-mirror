@@ -177,11 +177,6 @@ public:
         m_points.Move( aVector );
     }
 
-    bool IsSolid() const
-    {
-        return true;
-    }
-
 private:
     // vertices
     SHAPE_LINE_CHAIN m_points;

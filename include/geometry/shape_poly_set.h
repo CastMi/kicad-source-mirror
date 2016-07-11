@@ -1,6 +1,7 @@
 /*
  * This program source code file is part of KiCad, a free EDA CAD application.
  *
+ * Copyright (C) CERN 2016 Michele Castellana, <michele.castellana@cern.ch>
  * Copyright (C) 2015 CERN
  * @author Tomasz Wlostowski <tomasz.wlostowski@cern.ch>
  *
@@ -315,12 +316,6 @@ class SHAPE_POLY_SET : public SHAPE
 
         /// @copydoc SHAPE::Move()
         void Move( const VECTOR2I& aVector );
-
-        /// @copydoc SHAPE::IsSolid()
-        bool IsSolid() const
-        {
-            return true;
-        }
 
         const BOX2I BBox( int aClearance = 0 ) const;
 

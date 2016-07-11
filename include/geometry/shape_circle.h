@@ -92,10 +92,6 @@ public:
         m_center += aVector;
     }
 
-    bool IsSolid() const
-    {
-        return true;
-    }
 private:
     int m_radius;
     VECTOR2I m_center;
