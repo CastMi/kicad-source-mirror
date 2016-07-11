@@ -1,6 +1,7 @@
 /*
  * This program source code file is part of KiCad, a free EDA CAD application.
  *
+ * Copyright (C) CERN 2016 Michele Castellana, <michele.castellana@cern.ch>
  * Copyright (C) 2015 Kicad Developers, see change_log.txt for contributors.
  *
  * This program is free software; you can redistribute it and/or
@@ -56,7 +57,7 @@ public:
        SHAPE( SH_CONVEX ), m_points( aOther.m_points )
     {}
 
-    SHAPE* Clone() const
+    SHAPE_CONVEX* Clone() const override
     {
         return new SHAPE_CONVEX( *this );
     }
