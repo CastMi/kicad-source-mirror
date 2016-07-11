@@ -303,6 +303,15 @@ public:
       int Distance( const VECTOR2I& aP ) const;
 
       /**
+       * Function Distance()
+       *
+       * Computes the minimum distance between the line chain and a segment aSeg.
+       * @param aP the segment
+       * @return minimum distance.
+       */
+      int Distance( const SEG& aSeg ) const;
+
+      /**
        * Function Reverse()
        *
        * Reverses point order in the line chain.

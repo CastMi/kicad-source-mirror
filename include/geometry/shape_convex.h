@@ -144,6 +144,17 @@ public:
         return m_points;
     }
 
+    const std::string Format() const override
+    {
+       std::stringstream ss;
+       ss << m_points.Format();
+       return ss.str();
+    }
+
+    int Distance( const SEG& aSeg ) const {
+       return m_points.Distance(aSeg);
+    }
+
     /**
      * Function Append()
      *

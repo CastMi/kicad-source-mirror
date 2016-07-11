@@ -122,6 +122,15 @@ void SHAPE_LINE_CHAIN::Remove( int aStartIndex, int aEndIndex )
     m_points.erase( m_points.begin() + aStartIndex, m_points.begin() + aEndIndex + 1 );
 }
 
+int SHAPE_LINE_CHAIN::Distance( const SEG& aSeg ) const
+{
+    int d = INT_MAX;
+
+    for( int s = 0; s < SegmentCount(); ++s )
+        d = std::min( d, CSegment( s ).Distance( aSeg ) );
+
+    return d;
+}
 
 int SHAPE_LINE_CHAIN::Distance( const VECTOR2I& aP ) const
 {
