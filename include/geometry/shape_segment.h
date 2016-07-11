@@ -58,7 +58,7 @@ public:
         return m_seg.Distance( aSeg ) < ( m_width + 1 ) / 2 + aClearance;
     }
 
-    bool Collide( const VECTOR2I& aP, int aClearance = 0 ) const
+    bool Collide( const VECTOR2I& aP, int aClearance = 0 ) const override
     {
         return m_seg.Distance( aP ) < ( m_width + 1 ) / 2 + aClearance;
     }

@@ -281,7 +281,7 @@ public:
        * @param aClearance minimum distance that does not qualify as a collision.
        * @return true, when a collision has been found
        */
-      bool Collide( const VECTOR2I& aP, int aClearance = 0 ) const;
+      bool Collide( const VECTOR2I& aP, int aClearance = 0 ) const override;
 
       /**
        * Function Collide()
@@ -583,6 +583,10 @@ public:
       bool IsSolid() const override
       {
          return false;
+      }
+
+      bool operator==( const SHAPE_LINE_CHAIN& aLine ) const {
+         return !((*this) != aLine);
       }
 
    private:

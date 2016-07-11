@@ -57,6 +57,8 @@ public:
        SHAPE( SH_CONVEX ), m_points( aOther.m_points )
     {}
 
+    ~SHAPE_CONVEX() {}
+
     SHAPE_CONVEX* Clone() const override
     {
         return new SHAPE_CONVEX( *this );
@@ -175,6 +177,16 @@ public:
     void Move( const VECTOR2I& aVector )
     {
         m_points.Move( aVector );
+    }
+
+    bool operator==( const SHAPE_CONVEX& aConv ) const
+    {
+       return m_points == aConv.Vertices();
+    }
+
+    bool operator!=( const SHAPE_CONVEX& aConv ) const
+    {
+       return !(*this == aConv);
     }
 
 private:

@@ -58,7 +58,6 @@ bool SHAPE_LINE_CHAIN::Collide( const SEG& aSeg, int aClearance ) const
     return false;
 }
 
-
 const SHAPE_LINE_CHAIN SHAPE_LINE_CHAIN::Reverse() const
 {
     SHAPE_LINE_CHAIN a( *this );
@@ -531,7 +530,7 @@ const std::string SHAPE_LINE_CHAIN::Format() const
     ss << m_points.size() << " " << ( m_closed ? 1 : 0 ) << " ";
 
     for( int i = 0; i < PointCount(); i++ )
-        ss << m_points[i].x << " " << m_points[i].y << " "; // Format() << " ";
+        ss << '(' << m_points[i].x << ", " << m_points[i].y << ") "; // Format() << " ";
 
     return ss.str();
 }

@@ -320,7 +320,7 @@ class SHAPE_POLY_SET : public SHAPE
         const BOX2I BBox( int aClearance = 0 ) const;
 
         // fixme: add collision support
-        bool Collide( const VECTOR2I& aP, int aClearance = 0 ) const { return false; }
+        bool Collide( const VECTOR2I& aP, int aClearance = 0 ) const override { return false; }
         bool Collide( const SEG& aSeg, int aClearance = 0 ) const { return false; }
 
 

@@ -36,7 +36,6 @@ class SHAPE_POLY_SET;
  * @param aResult = a vector to store the convex polygon.
  * @param aPoly is the list of points.
  */
-
 void BuildConvexHull( std::vector<wxPoint>& aResult, const std::vector<wxPoint>& aPoly);
 
 

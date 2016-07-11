@@ -162,9 +162,9 @@ public:
 
     virtual bool Parse( std::stringstream& aStream );
 
-    virtual const std::string Format( ) const;
+    virtual const std::string Format() const;
 
-protected:
+private:
     ///> type of our shape
     SHAPE_TYPE m_type;
 };
